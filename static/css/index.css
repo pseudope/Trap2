@@ -348,7 +348,7 @@ body {
 
 /* Footer Improvements */
 .footer {
-  background: var(--background-secondary);
+  background: rgba(198, 14, 102, 0.12);
   border-top: 1px solid var(--border-color);
   padding: 3rem 1.5rem;
 }
