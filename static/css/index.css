@@ -838,3 +838,8 @@ a:focus {
 .publication-logos img[src*="mllab_logo"] {
   transform: translateY(-5px);
 }
+
+/* Smaller superscripts for author / affiliation markers */
+.publication-authors sup {
+  font-size: 0.62em;
+}

@@ -1,12 +1,12 @@
-# TRAP² — Making Models Unmergeable via Scaling-Sensitive Loss Landscape
+# Trap² — Making Models Unmergeable via Scaling-Sensitive Loss Landscape
 
-Project page for **TRAP²** (*Training-time Protection via Task-Robust Adversarial Perturbation*),
+Project page for **Trap²** (*Training-time Protection via Task-Robust Adversarial Perturbation*),
 accepted to **ICML 2026** (Seoul).
 
 **Authors:** Minwoo Jang, Hoyoung Kim, Jabin Koo, Jungseul Ok
 (POSTECH Graduate School of AI · National AI Research Lab, Seoul · POSTECH CSE)
 
-TRAP² is an architecture-agnostic, training-time protection framework that embeds *unmergeability*
+Trap² is an architecture-agnostic, training-time protection framework that embeds *unmergeability*
 into fine-tuned updates: released weights stay useful standalone, but degrade under the re-scaling
 that drives unauthorized model merging — for both adapter-only (LoRA) and full-checkpoint releases.
 
