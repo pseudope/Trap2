@@ -21,6 +21,12 @@
   --border-radius: 12px;
   --border-radius-lg: 16px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Floating action buttons (scroll-to-top / bottom) geometry */
+  --fab-size: 50px;     /* button diameter */
+  --fab-edge: 2rem;     /* distance from screen edge */
+  /* Horizontal space the right-side FABs reserve (edge + button + breathing gap) */
+  --fab-gutter: calc(var(--fab-edge) + var(--fab-size) + 1rem);
 }
 
 /* Smooth scrolling for better UX */
@@ -427,9 +433,9 @@ code {
 .scroll-to-top,
 .scroll-to-bottom {
   position: fixed;
-  right: 2rem;
-  width: 50px;
-  height: 50px;
+  right: var(--fab-edge);
+  width: var(--fab-size);
+  height: var(--fab-size);
   background: var(--gradient-accent);
   color: white;
   border: none;
@@ -650,7 +656,8 @@ code {
   }
 
   .more-works-dropdown {
-    width: calc(100vw - 2rem);
+    /* left edge ~screen edge; leave the right FAB gutter clear so buttons stay visible */
+    width: calc(100vw - var(--fab-gutter));
     left: -1rem;
     right: auto;
     bottom: calc(100% + 0.5rem);
@@ -698,8 +705,9 @@ code {
     bottom: calc(100% + 0.5rem);
     left: 0;
     right: auto;
-    width: calc(100vw - 2rem);
-    max-width: 90vw;
+    /* left edge at container (1rem); leave the right FAB gutter clear */
+    width: calc(100vw - 1rem - var(--fab-gutter));
+    max-width: none;
   }
   
   .link-block {
