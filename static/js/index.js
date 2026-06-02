@@ -80,15 +80,33 @@ function scrollToTop() {
     });
 }
 
-// Show/hide scroll to top button
-window.addEventListener('scroll', function() {
-    const scrollButton = document.querySelector('.scroll-to-top');
-    if (window.pageYOffset > 300) {
-        scrollButton.classList.add('visible');
-    } else {
-        scrollButton.classList.remove('visible');
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide scroll-to-top and scroll-to-bottom buttons
+function updateScrollButtons() {
+    const topButton = document.querySelector('.scroll-to-top');
+    const bottomButton = document.querySelector('.scroll-to-bottom');
+    const scrolled = window.pageYOffset;
+    const nearBottom = window.innerHeight + scrolled >= document.documentElement.scrollHeight - 100;
+
+    if (topButton) {
+        topButton.classList.toggle('visible', scrolled > 300);
     }
-});
+    if (bottomButton) {
+        // Show only when the page is scrollable and we are not already at the bottom
+        const scrollable = document.documentElement.scrollHeight > window.innerHeight + 100;
+        bottomButton.classList.toggle('visible', scrollable && !nearBottom);
+    }
+}
+
+window.addEventListener('scroll', updateScrollButtons);
+window.addEventListener('load', updateScrollButtons);
+window.addEventListener('resize', updateScrollButtons);
 
 // Video carousel autoplay when in view
 function setupVideoCarouselAutoplay() {

@@ -1,10 +1,9 @@
 /* Modern CSS Variables for consistent theming */
 :root {
-  /* Brand palette — 주(primary) / 부(accent). Edit these two to recolor the whole site. */
-  --primary-color: #C60E66;    /* 주 */
-  --primary-hover: #9e0b51;    /* 주 darker (hover) */
+  --primary-color: #C60E66;
+  --primary-hover: #9e0b51;
   --secondary-color: #64748b;
-  --accent-color: #E5A147;     /* 부 */
+  --accent-color: #E5A147;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
   --text-light: #94a3b8;
@@ -51,7 +50,7 @@ body {
 }
 
 .button.is-dark {
-  background: var(--text-primary) !important;
+  background: var(--gradient-accent) !important;
   border: none !important;
   color: white !important;
   box-shadow: var(--shadow-md);
@@ -60,7 +59,8 @@ body {
 .button.is-dark:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  background: var(--primary-color) !important;
+  background: var(--gradient-accent) !important;
+  filter: brightness(1.08);
 }
 
 .button.is-dark:active {
@@ -95,7 +95,7 @@ body {
 }
 
 .hero.is-light {
-  background: var(--background-secondary);
+  background: rgba(229, 161, 71, 0.15);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
@@ -149,7 +149,7 @@ body {
 .publication-authors {
     font-family: 'Inter', sans-serif !important;
     font-weight: 500;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.6rem;
 }
 
 .publication-venue {
@@ -371,7 +371,7 @@ body {
 
 /* BibTeX Styling */
 pre {
-  background: var(--background-accent) !important;
+  background: rgba(229, 161, 71, 0.15) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: var(--border-radius) !important;
   padding: 1.5rem !important;
@@ -381,7 +381,7 @@ pre {
 }
 
 code {
-  background: var(--background-accent) !important;
+  background: transparent !important;
   color: var(--text-primary) !important;
   font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace !important;
 }
@@ -395,7 +395,7 @@ code {
 }
 
 .copy-bibtex-btn {
-  background: var(--primary-color);
+  background: var(--gradient-accent);
   color: white;
   border: none;
   border-radius: var(--border-radius);
@@ -410,7 +410,7 @@ code {
 }
 
 .copy-bibtex-btn:hover {
-  background: var(--primary-hover);
+  filter: brightness(1.08);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -424,13 +424,13 @@ code {
 }
 
 /* Scroll to Top Button */
-.scroll-to-top {
+.scroll-to-top,
+.scroll-to-bottom {
   position: fixed;
-  bottom: 2rem;
   right: 2rem;
   width: 50px;
   height: 50px;
-  background: var(--primary-color);
+  background: var(--gradient-accent);
   color: white;
   border: none;
   border-radius: 50%;
@@ -446,13 +446,18 @@ code {
   box-shadow: var(--shadow-lg);
 }
 
-.scroll-to-top:hover {
-  background: var(--primary-hover);
+.scroll-to-bottom { bottom: 2rem; }
+.scroll-to-top { bottom: 5.5rem; }
+
+.scroll-to-top:hover,
+.scroll-to-bottom:hover {
+  filter: brightness(1.08);
   transform: translateY(-3px);
   box-shadow: var(--shadow-xl);
 }
 
-.scroll-to-top.visible {
+.scroll-to-top.visible,
+.scroll-to-bottom.visible {
   opacity: 1;
   visibility: visible;
 }
@@ -470,7 +475,7 @@ code {
   background: var(--background-primary);
   color: var(--text-primary);
   border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius);
   padding: 0.75rem 1.25rem;
   font-weight: 600;
   font-size: 0.9rem;
@@ -487,8 +492,10 @@ code {
 .more-works-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  background: var(--background-secondary);
-  border-color: var(--primary-color);
+  border-color: transparent;
+  background-image: linear-gradient(var(--background-secondary), var(--background-secondary)), var(--gradient-accent);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .more-works-btn .dropdown-arrow {
@@ -571,7 +578,7 @@ code {
 }
 
 .work-item:hover {
-  background: var(--background-accent);
+  background: rgba(229, 161, 71, 0.15);
   transform: translateX(4px);
 }
 
@@ -760,13 +767,43 @@ a:focus {
 /* Highlight the page owner's name in author lists */
 .own-name {
   font-weight: 800 !important;
-  color: var(--primary-color) !important;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   text-decoration: underline !important;
   text-decoration-color: var(--accent-color) !important;
   text-decoration-thickness: 2px !important;
   text-underline-offset: 4px;            /* clear the descenders (g, j) */
   text-decoration-skip-ink: auto !important; /* break underline around descenders */
 }
-.own-name:hover {
-  color: var(--primary-hover) !important;
+
+/* Affiliations + venue badge + corresponding-author note (hero) */
+.publication-affiliations {
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem !important;
+}
+.publication-affiliations .author-block {
+  margin-right: 0;
+}
+.publication-affiliations .affil-sep {
+  color: var(--text-light);
+  margin: 0 0.6rem;
+}
+.publication-venue-wrap {
+  margin-top: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+.publication-venue-badge {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  color: var(--text-secondary);
+}
+.publication-note {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 0;
 }

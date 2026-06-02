@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Primary Meta Tags -->
-  <meta name="title" content="TRAP²: Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
-  <meta name="description" content="TRAP² is an architecture-agnostic, training-time protection framework that embeds unmergeability into fine-tuned updates: released weights stay useful standalone but degrade under the re-scaling that drives unauthorized model merging.">
+  <meta name="title" content="Trap²: Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
+  <meta name="description" content="Trap² is an architecture-agnostic, training-time protection framework that embeds unmergeability into fine-tuned updates: released weights stay useful standalone but degrade under the re-scaling that drives unauthorized model merging.">
   <meta name="keywords" content="model merging, unmergeability, model protection, LoRA, adapters, loss landscape, adversarial perturbation, model hubs, ICML 2026, machine learning">
   <meta name="author" content="Minwoo Jang, Hoyoung Kim, Jabin Koo, Jungseul Ok">
   <meta name="robots" content="index, follow">
@@ -15,7 +15,7 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="POSTECH Graduate School of AI">
-  <meta property="og:title" content="TRAP²: Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
+  <meta property="og:title" content="Trap²: Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
   <meta property="og:description" content="An architecture-agnostic, training-time protection framework that makes released model updates useful standalone but brittle under unauthorized merging.">
   <!-- TODO: Replace with your actual hosted URL once deployed -->
   <meta property="og:url" content="https://pseudope.github.io/Trap2">
@@ -23,7 +23,7 @@
   <meta property="og:image" content="https://pseudope.github.io/Trap2/static/images/social_preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="TRAP² - Scaling-Sensitive Loss Landscape for Unmergeability">
+  <meta property="og:image:alt" content="Trap² - Scaling-Sensitive Loss Landscape for Unmergeability">
   <meta property="article:published_time" content="2026-06-01T00:00:00.000Z">
   <meta property="article:author" content="Minwoo Jang">
   <meta property="article:section" content="Research">
@@ -32,10 +32,10 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TRAP²: Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
+  <meta name="twitter:title" content="Trap²: Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
   <meta name="twitter:description" content="An architecture-agnostic, training-time protection framework that makes released model updates useful standalone but brittle under unauthorized merging.">
   <meta name="twitter:image" content="https://pseudope.github.io/Trap2/static/images/social_preview.png">
-  <meta name="twitter:image:alt" content="TRAP² - Scaling-Sensitive Loss Landscape">
+  <meta name="twitter:image:alt" content="Trap² - Scaling-Sensitive Loss Landscape">
 
   <!-- Academic/Research Specific -->
   <meta name="citation_title" content="Making Models Unmergeable via Scaling-Sensitive Loss Landscape">
@@ -97,7 +97,7 @@
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
     "headline": "Making Models Unmergeable via Scaling-Sensitive Loss Landscape",
-    "description": "TRAP² is an architecture-agnostic, training-time protection framework that embeds unmergeability into fine-tuned updates: released weights stay useful standalone but degrade under the re-scaling that drives unauthorized model merging.",
+    "description": "Trap² is an architecture-agnostic, training-time protection framework that embeds unmergeability into fine-tuned updates: released weights stay useful standalone but degrade under the re-scaling that drives unauthorized model merging.",
     "author": [
       { "@type": "Person", "name": "Minwoo Jang", "affiliation": { "@type": "Organization", "name": "Graduate School of AI, POSTECH" } },
       { "@type": "Person", "name": "Hoyoung Kim", "affiliation": { "@type": "Organization", "name": "National AI Research Lab" } },
@@ -119,10 +119,15 @@
     <i class="fas fa-chevron-up"></i>
   </button>
 
+  <!-- Scroll to Bottom Button -->
+  <button class="scroll-to-bottom" onclick="scrollToBottom()" title="Scroll to bottom" aria-label="Scroll to bottom">
+    <i class="fas fa-chevron-down"></i>
+  </button>
+
   <!-- More Works Dropdown -->
   <div class="more-works-container">
     <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works">
-      <i class="fas fa-flask"></i>
+      <i class="fas fa-book-open"></i>
       More Works
       <i class="fas fa-chevron-down dropdown-arrow"></i>
     </button>
@@ -183,25 +188,29 @@
                 <a href="https://sites.google.com/view/jungseulok" target="_blank">Jungseul Ok</a><sup>1,3 †</sup></span>
             </div>
 
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">{<sup>1</sup>Graduate School of AI, <sup>3</sup>Department of CSE}, POSTECH&nbsp;&nbsp;&nbsp;</span>
+            <div class="is-size-5 publication-authors publication-affiliations">
+              <span class="author-block">{<sup>1</sup>Graduate School of AI, <sup>3</sup>Department of CSE}, POSTECH</span>
+              <span class="affil-sep">·</span>
               <span class="author-block"><sup>2</sup>National AI Research Lab</span>
-              <br>
-              <span class="author-block" style="font-weight:600;">International Conference on Machine Learning (ICML) 2026, Seoul</span>
-              <span class="eql-cntrb"><small><br><sup>†</sup>Correspondence to: Jungseul Ok &lt;jungseul@postech.ac.kr&gt;</small></span>
+            </div>
+
+            <div class="publication-note"><sup>†</sup>Corresponding Author</div>
+
+            <div class="publication-venue-wrap">
+              <span class="publication-venue-badge">ICML 2026 &nbsp;·&nbsp; Seoul, Republic of Korea</span>
             </div>
 
             <div class="column has-text-centered">
               <div class="publication-links">
                 <!-- Paper: TODO replace with the PMLR / OpenReview / arXiv URL once available.
                      NOTE: the original manuscript PDF is intentionally not hosted in this repo. -->
-                <span class="link-block">
+                <!-- <span class="link-block">
                   <a href="#" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"><i class="fas fa-file-pdf"></i></span>
                     <span>Paper (Coming soon)</span>
                   </a>
-                </span>
+                </span> -->
 
                 <!-- arXiv: TODO add arXiv id -->
                 <span class="link-block">
@@ -226,7 +235,7 @@
                   <a href="static/pdfs/poster.pdf" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"><i class="fas fa-image"></i></span>
-                    <span>Poster</span>
+                    <span>Poster (Soon) </span>
                   </a>
                 </span>
 
@@ -235,7 +244,7 @@
                   <a href="#" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"><i class="fab fa-github"></i></span>
-                    <span>Code (Coming Soon)</span>
+                    <span>Code (Soon)</span>
                   </a>
                 </span>
               </div>
@@ -252,10 +261,10 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <!-- TODO: Add your original teaser figure (e.g., Figure 1) at static/images/teaser.png -->
-        <img src="static/images/teaser.png" alt="TRAP² overview: training-time unmergeability protection across architectures and release formats" style="width:100%; border-radius:10px;"/>
+        <img src="static/images/teaser.png" alt="Trap² overview: training-time unmergeability protection across architectures and release formats" style="width:100%; border-radius:10px;"/>
         <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
           Providers release fine-tuned updates (full checkpoints or adapters) for downstream reuse.
-          <b>TRAP<sup>2</sup></b> embeds protection <i>during fine-tuning</i> so that a released update stays useful on its own,
+          <b>Trap²</b> embeds protection <i>during fine-tuning</i> so that a released update stays useful on its own,
           but <b>breaks reliably when pulled into an unauthorized merge</b> &mdash; without relying on
           architecture-specific symmetries or access to full weights.
         </h2>
@@ -281,10 +290,10 @@
               formats in practice.
             </p>
             <p>
-              To close this gap, we propose <b>TRAP<sup>2</sup></b> (<i>Training-time Protection via Task-Robust Adversarial
+              To close this gap, we propose <b>Trap²</b> (<i>Training-time Protection via Task-Robust Adversarial
               Perturbation</i>), an <b>architecture-agnostic</b> protection framework that encodes protection into updates
               during fine-tuning, regardless of whether they are released as adapters or full models. Instead of relying
-              on architecture-dependent approaches, TRAP<sup>2</sup> uses <b>weight re-scaling as a simple proxy for the
+              on architecture-dependent approaches, Trap² uses <b>weight re-scaling as a simple proxy for the
               merging process</b>. It keeps released weights effective in standalone use, but degrades them under
               re-scaling that often arises in merging, undermining unauthorized recomposition.
             </p>
@@ -308,10 +317,10 @@
               viewed through a <b>unified lens</b>: they aggregate released updates as
               <span class="has-text-weight-semibold">W<sub>0</sub> + &Sigma;<sub>i</sub> s<sub>i</sub> &middot; &Delta;W<sub>i</sub></span>,
               re-scaling each update by a coefficient <span class="has-text-weight-semibold">s<sub>i</sub></span>.
-              TRAP<sup>2</sup> exploits this by treating a single scaling factor <b>s</b> on the update as a lightweight proxy for merging.
+              Trap² exploits this by treating a single scaling factor <b>s</b> on the update as a lightweight proxy for merging.
             </p>
             <p>
-              TRAP<sup>2</sup> solves an <b>adversarial objective over update re-scaling</b>:
+              Trap² solves an <b>adversarial objective over update re-scaling</b>:
               it <b>preserves utility at the authorized scale (s&nbsp;=&nbsp;1)</b>, while
               <b>inducing degradation under off-nominal scaling (s&nbsp;&ne;&nbsp;1)</b> &mdash; precisely the regime that
               merging pipelines introduce. The result is an update that is sharp and effective standalone, yet brittle the
@@ -324,7 +333,7 @@
             <img src="static/images/method.png" alt="Loss shaping over the scaling factor s: high utility at s=1, degradation at s!=1"/>
           </figure>
           <p class="has-text-centered is-size-6" style="margin-top:0.75rem;">
-            TRAP<sup>2</sup> retains high utility in the authorized scale (s&nbsp;=&nbsp;1) but collapses under
+            Trap² retains high utility in the authorized scale (s&nbsp;=&nbsp;1) but collapses under
             unauthorized scaling (s&nbsp;&ne;&nbsp;1), unlike an unprotected adapter of comparable standalone accuracy.
           </p>
         </div>
@@ -348,12 +357,12 @@
                 protocol that quantifies standalone utility and degradation under merging.
               </li>
               <li>
-                <b>Protection method.</b> We introduce TRAP<sup>2</sup>, a training-time procedure that keeps a fine-tuned
+                <b>Protection method.</b> We introduce Trap², a training-time procedure that keeps a fine-tuned
                 update effective at the nominal scale (s&nbsp;=&nbsp;1) while making it brittle under off-nominal
                 re-scaling (s&nbsp;&ne;&nbsp;1), capturing the re-weighting effects of practical merging pipelines.
               </li>
               <li>
-                <b>Empirical &amp; theoretical analysis.</b> We evaluate TRAP<sup>2</sup> across diverse merging operators,
+                <b>Empirical &amp; theoretical analysis.</b> We evaluate Trap² across diverse merging operators,
                 release formats, and architectures, and provide theory establishing (i) convergence under stochastic
                 optimization and (ii) degradation under down-scaling and model merging.
               </li>
@@ -372,7 +381,7 @@
       <h2 class="title is-3 has-text-centered">Results</h2>
       <div class="content has-text-justified">
         <p>
-          Across architectures (e.g., CLIP ViT-B/32) and release formats, TRAP<sup>2</sup> <b>preserves strong standalone
+          Across architectures (e.g., CLIP ViT-B/32) and release formats, Trap² <b>preserves strong standalone
           utility</b> while <b>consistently degrading performance under widely used merging operators</b>. It even holds up
           under <b>stronger threat models</b> that have access to task-relevant data &mdash; both data-dependent mergers and
           data-driven recovery attacks.
@@ -408,7 +417,7 @@
                 <td class="has-text-centered">56.86</td>
               </tr>
               <tr>
-                <td><b>TRAP<sup>2</sup> (Ours)</b></td>
+                <td><b>Trap² (Ours)</b></td>
                 <td class="has-text-centered"><b>9.48</b></td>
                 <td class="has-text-centered"><b>32.33</b></td>
                 <td class="has-text-centered"><b>49.15</b></td>
@@ -417,7 +426,7 @@
             </tbody>
           </table>
           <p class="is-size-6">
-            After merging a TRAP<sup>2</sup>-protected adapter, even white-box recovery (ProDistill, post-merge SFT) gains
+            After merging a Trap²-protected adapter, even white-box recovery (ProDistill, post-merge SFT) gains
             only a few points above the zero-shot reference, while the unprotected baseline recovers far more &mdash;
             indicating that protection meaningfully impedes recovery even with in-domain data.
           </p>
@@ -427,9 +436,9 @@
       <div class="content has-text-justified" style="margin-top:1rem;">
         <p>
           <b>Catastrophic degradation under averaging.</b> Using a uniform-averaging proxy (scaling a single adapter by
-          s&nbsp;=&nbsp;1/N), TRAP<sup>2</sup> shows consistent catastrophic degradation as soon as N&nbsp;&ge;&nbsp;2 across
+          s&nbsp;=&nbsp;1/N), Trap² shows consistent catastrophic degradation as soon as N&nbsp;&ge;&nbsp;2 across
           eight vision benchmarks, while unprotected adapters stay relatively stable.
-          <b>Low cost.</b> Despite the adversarial objective, TRAP<sup>2</sup> is competitive with standard LoRA fine-tuning &mdash;
+          <b>Low cost.</b> Despite the adversarial objective, Trap² is competitive with standard LoRA fine-tuning &mdash;
           faster to a shared target accuracy on 5 of 8 datasets and higher accuracy at a shared budget on 6 of 8.
         </p>
       </div>
