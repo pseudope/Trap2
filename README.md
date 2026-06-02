@@ -1,80 +1,48 @@
-# Academic Project Page Template
+# TRAP² — Making Models Unmergeable via Scaling-Sensitive Loss Landscape
 
-> **Update (September 2025)**: This template has been modernized with better design, SEO, and mobile support. For the original version, see the [original-version branch](https://github.com/eliahuhorwitz/Academic-project-page-template/tree/original-version).
+Project page for **TRAP²** (*Training-time Protection via Task-Robust Adversarial Perturbation*),
+accepted to **ICML 2026** (Seoul).
 
-A clean, responsive template for academic project pages.
+**Authors:** Minwoo Jang, Hoyoung Kim, Jabin Koo, Jungseul Ok
+(POSTECH Graduate School of AI · National AI Research Lab, Seoul · POSTECH CSE)
 
+TRAP² is an architecture-agnostic, training-time protection framework that embeds *unmergeability*
+into fine-tuned updates: released weights stay useful standalone, but degrade under the re-scaling
+that drives unauthorized model merging — for both adapter-only (LoRA) and full-checkpoint releases.
 
-Example project pages built using this template are:
-- https://horwitz.ai/probex
-- https://vision.huji.ac.il/probegen
-- https://horwitz.ai/mother
-- https://horwitz.ai/spectral_detuning
-- https://vision.huji.ac.il/ladeda
-- https://vision.huji.ac.il/dsire
-- https://horwitz.ai/podd
-- https://dreamix-video-editing.github.io
-- https://horwitz.ai/conffusion
-- https://horwitz.ai/3d_ads/
-- https://vision.huji.ac.il/ssrl_ad
-- https://vision.huji.ac.il/deepsim
+## Local preview
 
+It's a static site — open `index.html` directly, or serve it:
 
+```bash
+python3 -m http.server 8000
+# then visit http://localhost:8000
+```
 
-## Start using the template
-To start using the template click on `Use this Template`.
+## Deploying (GitHub Pages)
 
-The template uses html for controlling the content and css for controlling the style. 
-To edit the websites contents edit the `index.html` file. It contains different HTML "building blocks", use whichever ones you need and comment out the rest.  
+Push to the repository and enable GitHub Pages (Settings → Pages → deploy from the `master` branch root).
+`.nojekyll` is included so the `static/` assets are served as-is.
 
-**IMPORTANT!** Make sure to replace the `favicon.ico` under `static/images/` with one of your own, otherwise your favicon is going to be a dreambooth image of me.
+## Before publishing — fill in the `TODO`s
 
-## What's New
+Edit `index.html` and replace the placeholders:
 
-- Modern, clean design with better mobile support
-- Improved SEO with proper meta tags and structured data
-- Performance improvements (lazy loading, optimized assets)
-- More Works dropdown
-- Copy button for BibTeX citations
-- Better accessibility
+- **Links** in the hero buttons: Paper (PMLR/OpenReview), arXiv, OpenReview, and the GitHub **Code** repo.
+- **Images** (add your own originals):
+  - `static/images/teaser.png` — overview / Figure 1
+  - `static/images/method.png` — loss-landscape / Figure 2
+  - `static/images/social_preview.png` — 1200×630 social card (optional)
+- **`og:url` / `citation_pdf_url`** meta tags once the page is hosted.
+- **`static/images/favicon.ico`** — currently the template author's favicon; replace it with your own.
 
-## Components
+## Notes
 
-- Teaser video
-- Image carousel
-- YouTube video embedding
-- Video carousel
-- PDF poster viewer
-- BibTeX citation
+- The original manuscript PDF and any LaTeX sources are intentionally **not** part of this repo and
+  are kept out of version control locally (`.git/info/exclude`).
 
-## Customization
+## Credits
 
-The HTML file has TODO comments showing what to replace:
-
-- Paper title, authors, institution, conference
-- Links (arXiv, GitHub, etc.)
-- Abstract and descriptions  
-- Videos, images, and PDFs
-- Related works in the dropdown
-- Meta tags for SEO and social sharing
-
-### Meta Tags
-The template includes meta tags for better search engine visibility and social media sharing. These appear in the `<head>` section and help with:
-- Google Scholar indexing
-- Social media previews (Twitter, Facebook, LinkedIn)
-- Search engine optimization
-
-Create a 1200x630px social preview image at `static/images/social_preview.png`.
-
-## Tips
-
-- Compress images with [TinyPNG](https://tinypng.com)
-- Use YouTube for large videos (>10MB)  
-- Replace the favicon in `static/images/`
-- Works with GitHub Pages
-
-## Acknowledgments
-Parts of this project page were adopted from the [Nerfies](https://nerfies.github.io/) page.
-
-## Website License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+Built on the [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template),
+adapted from the [Nerfies](https://nerfies.github.io) page. Licensed under
+[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
