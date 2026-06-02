@@ -807,3 +807,34 @@ a:focus {
   color: var(--text-light);
   margin-bottom: 0;
 }
+
+/* Affiliation / venue logo strip (hero) */
+.publication-logos {
+  margin-top: 2.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.publication-logos img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+}
+@media screen and (max-width: 768px) {
+  .publication-logos {
+    gap: 1.75rem;
+  }
+  .publication-logos img {
+    height: 40px;
+  }
+}
+
+/* Per-logo fine-tuning (uneven internal padding across logos) */
+.publication-logos img[src*="postech_logo"] {
+  height: 70px;
+}
+.publication-logos img[src*="mllab_logo"] {
+  transform: translateY(-5px);
+}
