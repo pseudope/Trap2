@@ -278,7 +278,7 @@
           <h2 class="subtitle has-text-justified" style="margin-top:1rem; line-height:1.8;">
             <b>[Figure 1]</b> Most prior defenses are <b>post-hoc</b>: they apply function-preserving transformations
             to the full model weights after fine-tuning, which ties them to Transformer symmetries and full-weight
-            access. <b>Trap²</b> is <b>training-time</b>: it injects unmergeability into the update during fine-tuning
+            access. <b>Trap²</b> is a <b>training-time</b> defense: it injects unmergeability into the update during fine-tuning
             by making it <b>scaling-sensitive</b>, preserving utility at the authorized scale (\(s = 1\))
             while degrading under the off-nominal re-scaling (\(s \neq 1\)) that merging induces.
           </h2>
@@ -343,7 +343,7 @@
           </figure>
           <h2 class="subtitle has-text-justified" style="margin-top:1rem; line-height:1.8;">
             <b>[Figure 2]</b> Trap² retains high utility at the authorized scale (\(s = 1\)) but collapses under
-            unauthorized scaling (\(s \neq 1\)), unlike an unprotected adapter of comparable standalone accuracy.
+            off-nominal scaling (\(s \neq 1\)), unlike an unprotected adapter of comparable standalone accuracy.
           </h2>
         </div>
       </div>
