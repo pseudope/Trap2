@@ -386,7 +386,9 @@ pre {
   border-radius: var(--border-radius) !important;
   padding: 1.5rem !important;
   font-size: 0.9rem !important;
-  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
   box-shadow: var(--shadow-sm);
 }
 
@@ -913,4 +915,22 @@ a:focus {
 /* Wide (compact) tables fill the container; small tables stay content-width */
 .table-scroll.compact .table {
   width: 100%;
+}
+
+/* Prevent wide display math and code from overflowing (and being clipped by hero overflow:hidden) on small screens */
+mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+pre {
+  max-width: 100%;
+}
+
+/* Ensure the BibTeX block wraps long lines on small screens (beats Bulma .content pre) */
+#bibtex-code,
+#bibtex-code code {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
