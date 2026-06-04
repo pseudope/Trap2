@@ -107,6 +107,15 @@
     "license": "https://creativecommons.org/licenses/by/4.0/"
   }
   </script>
+
+  <!-- MathJax for TeX math rendering -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -135,7 +144,7 @@
         </button>
       </div>
       <div class="works-list">
-        <!-- TODO: project page not available yet — replace href="#" when ready -->
+        <!-- TODO: project page not available yet; replace href="#" when ready -->
         <a href="#" class="work-item">
           <div class="work-info">
             <h5>Federated Variational Preference Alignment with Gumbel-Softmax Prior for Personalized User Preferences</h5>
@@ -260,17 +269,19 @@
 
 
   <!-- Teaser figure -->
-  <section class="hero teaser">
+  <section class="section teaser">
     <div class="container is-max-desktop">
-      <div class="hero-body">
-        <!-- TODO: Add your original teaser figure (e.g., Figure 1) at static/images/teaser.png -->
-        <img src="static/images/teaser.png" alt="Trap² overview: training-time unmergeability protection across architectures and release formats" style="width:100%; border-radius:10px;"/>
-        <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
-          Providers release fine-tuned updates (full checkpoints or adapters) for downstream reuse.
-          <b>Trap²</b> embeds protection <i>during fine-tuning</i> so that a released update stays useful on its own,
-          but <b>breaks reliably when pulled into an unauthorized merge</b> &mdash; without relying on
-          architecture-specific symmetries or access to full weights.
-        </h2>
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <img src="static/images/teaser.png" alt="Unmergeability protection in model sharing and limitations of prior work" style="width:100%; border-radius:10px;"/>
+          <h2 class="subtitle has-text-justified" style="margin-top:1rem; line-height:1.8;">
+            <b>[Figure 1]</b> Most prior defenses are <b>post-hoc</b>: they apply function-preserving transformations
+            to the full model weights after fine-tuning, which ties them to Transformer symmetries and full-weight
+            access. <b>Trap²</b> is <b>training-time</b>: it injects unmergeability into the update during fine-tuning
+            by making it <b>scaling-sensitive</b>, preserving utility at the authorized scale (\(s = 1\))
+            while degrading under the off-nominal re-scaling (\(s \neq 1\)) that merging induces.
+          </h2>
+        </div>
       </div>
     </div>
   </section>
@@ -281,24 +292,22 @@
   <section class="section hero is-light">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-full">
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              The rise of model hubs has made it easier to access reusable model components, making
-              <b>model merging</b> a practical tool for combining capabilities. Yet, this modularity also creates a
+              The rise of model hubs has made it easier to access reusable model components, making <b>model
+              merging</b> a practical tool for combining capabilities. Yet, this modularity also creates a
               <b>governance gap</b>: downstream users can recompose released weights into unauthorized mixtures that
               bypass safety alignment or licensing terms. Because existing defenses are largely post-hoc and
               architecture-specific, they provide inconsistent protection across diverse architectures and release
-              formats in practice.
-            </p>
-            <p>
-              To close this gap, we propose <b>Trap²</b> (<i>Training-time Protection via Task-Robust Adversarial
-              Perturbation</i>), an <b>architecture-agnostic</b> protection framework that encodes protection into updates
-              during fine-tuning, regardless of whether they are released as adapters or full models. Instead of relying
-              on architecture-dependent approaches, Trap² uses <b>weight re-scaling as a simple proxy for the
-              merging process</b>. It keeps released weights effective in standalone use, but degrades them under
-              re-scaling that often arises in merging, undermining unauthorized recomposition.
+              formats in practice. To close this gap, we propose Trap² (<b>Tra</b>ining-time <b>P</b>rotection via
+              <b>T</b>ask-<b>R</b>obust <b>A</b>dversarial <b>P</b>erturbation), an <b>architecture-agnostic</b>
+              protection framework that encodes protection into updates during fine-tuning, regardless of whether they
+              are released as adapters or full models. Instead of relying on architecture-dependent approaches, Trap²
+              uses <b>weight re-scaling as a simple proxy for the merging process</b>. It keeps released weights
+              effective in standalone use, but degrades them under re-scaling that often arises in merging, undermining
+              unauthorized recomposition.
             </p>
           </div>
         </div>
@@ -313,21 +322,17 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-full">
-          <h2 class="title is-3 has-text-centered">Key Idea: Shape the Loss Landscape Over Scale</h2>
+          <h2 class="title is-3 has-text-centered">Key Idea: Let's Shape the Loss Landscape Over <span class="gradient-text">Scaling</span></h2>
           <div class="content has-text-justified">
             <p>
-              Common merging operators &mdash; Task Arithmetic, TIES-Merging, DARE, and LoRA merging &mdash; can all be
-              viewed through a <b>unified lens</b>: they aggregate released updates as
-              <span class="has-text-weight-semibold">W<sub>0</sub> + &Sigma;<sub>i</sub> s<sub>i</sub> &middot; &Delta;W<sub>i</sub></span>,
-              re-scaling each update by a coefficient <span class="has-text-weight-semibold">s<sub>i</sub></span>.
-              Trap² exploits this by treating a single scaling factor <b>s</b> on the update as a lightweight proxy for merging.
-            </p>
-            <p>
-              Trap² solves an <b>adversarial objective over update re-scaling</b>:
-              it <b>preserves utility at the authorized scale (s&nbsp;=&nbsp;1)</b>, while
-              <b>inducing degradation under off-nominal scaling (s&nbsp;&ne;&nbsp;1)</b> &mdash; precisely the regime that
-              merging pipelines introduce. The result is an update that is sharp and effective standalone, yet brittle the
-              moment it is re-weighted and blended with third-party updates.
+              Common merging operators (such as Task Arithmetic, TIES-Merging, and DARE) aggregate released updates as
+              \(W_0 + \sum_i s_i \cdot \Delta W_i\), where \(W_0\) is the frozen base model, each \(\Delta W_i\) is a
+              released update (a LoRA adapter or a full-parameter difference), and \(s_i\) is its merging coefficient.
+              Trap² exploits this by treating a single scaling factor \(s\) on the update as a lightweight proxy for
+              merging: it solves an <b>adversarial objective over update re-scaling</b>, <b>preserving utility at the
+              authorized scale (\(s = 1\))</b> while <b>inducing degradation under off-nominal scaling (\(s \neq 1\))</b>,
+              precisely the regime that merging pipelines introduce. The result is an update that is sharp and effective
+              standalone, yet brittle the moment it is re-weighted and blended with third-party updates.
             </p>
           </div>
 
@@ -335,10 +340,10 @@
           <figure class="image" style="margin-top:1.5rem;">
             <img src="static/images/method.png" alt="Loss shaping over the scaling factor s: high utility at s=1, degradation at s!=1"/>
           </figure>
-          <p class="has-text-centered is-size-6" style="margin-top:0.75rem;">
-            Trap² retains high utility in the authorized scale (s&nbsp;=&nbsp;1) but collapses under
-            unauthorized scaling (s&nbsp;&ne;&nbsp;1), unlike an unprotected adapter of comparable standalone accuracy.
-          </p>
+          <h2 class="subtitle has-text-justified" style="margin-top:1rem; line-height:1.8;">
+            <b>[Figure 2]</b> Trap² retains high utility at the authorized scale (\(s = 1\)) but collapses under
+            unauthorized scaling (\(s \neq 1\)), unlike an unprotected adapter of comparable standalone accuracy.
+          </h2>
         </div>
       </div>
     </div>
@@ -346,54 +351,234 @@
   <!-- End key idea -->
 
 
-  <!-- Contributions -->
+  <!-- Trap2 objective -->
   <section class="section hero is-light">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Contributions</h2>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <div class="content is-size-5">
-            <ul>
-              <li>
-                <b>Problem setup.</b> We formalize a post-release protection setting for fine-tuned releases across
-                architectures and release formats (adapter-only updates and full checkpoints), with a unified evaluation
-                protocol that quantifies standalone utility and degradation under merging.
-              </li>
-              <li>
-                <b>Protection method.</b> We introduce Trap², a training-time procedure that keeps a fine-tuned
-                update effective at the nominal scale (s&nbsp;=&nbsp;1) while making it brittle under off-nominal
-                re-scaling (s&nbsp;&ne;&nbsp;1), capturing the re-weighting effects of practical merging pipelines.
-              </li>
-              <li>
-                <b>Empirical &amp; theoretical analysis.</b> We evaluate Trap² across diverse merging operators,
-                release formats, and architectures, and provide theory establishing (i) convergence under stochastic
-                optimization and (ii) degradation under down-scaling and model merging.
-              </li>
-            </ul>
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">The <span class="gradient-text">Trap²</span> Objective</h2>
+          <div class="content has-text-justified">
+            <p>
+              We parameterize the released update as a LoRA adapter \(\Delta W = BA\) on a frozen base \(W_0\), with
+              low-rank factors \(B \in \mathbb{R}^{d_{\text{out}} \times r}\), \(A \in \mathbb{R}^{r \times d_{\text{in}}}\),
+              and \(r \ll \min\{d_{\text{out}}, d_{\text{in}}\}\). Let
+              \(\mathcal{L}_{\text{scaled}}(\Delta W; s)\) be the expected task loss when the update is deployed at
+              scale \(s\), i.e., at weights \(W_0 + s \cdot \Delta W\). The <b>nominal loss</b> is the loss at the
+              authorized scale, while the <b>off-nominal loss</b> averages the loss over off-nominal scales \(s\) sampled
+              from a distribution \(\mathcal{S}\) whose support excludes a margin \(\delta\) around the nominal scale
+              \(s = 1\):
+            </p>
+            \[
+              \operatorname{supp}(\mathcal{S}) \subseteq [s_{\min},\,1-\delta]\,\cup\,[1+\delta,\,s_{\max}].
+            \]
+            <p>
+              Concretely, the two losses are
+            </p>
+            \[
+              \mathcal{L}_{\text{nominal}}(\Delta W) := \mathcal{L}_{\text{scaled}}(\Delta W; 1),
+              \qquad
+              \mathcal{L}_{\text{off}}(\Delta W) := \mathbb{E}_{s\sim\mathcal{S}}\,\big[\,w(s) \cdot \mathcal{L}_{\text{scaled}}(\Delta W; s)\,\big].
+            \]
+            <p>
+              Then, Trap² minimizes
+            </p>
+            \[
+              J(\Delta W) = \mathcal{L}_{\text{nominal}}(\Delta W) \;-\; \lambda \cdot \mathcal{L}_{\text{off}}(\Delta W),
+            \]
+            <p>
+              where \(\lambda \geq 0\) trades off standalone utility against sensitivity to re-scaling, with \(\lambda = 0\)
+              recovering standard fine-tuning. The first term preserves intended deployment
+              performance at \(s = 1\), and the second increases loss under off-nominal re-scaling, which is
+              precisely what makes the update unmergeable.
+            </p>
+            <p>
+              <b>[Why this breaks merging]</b> Many merging operators effectively re-scale each constituent update
+              (e.g., uniform averaging of \(N\) adapters scales each by \(1/N\)), so a merged model is pushed away from the
+              nominal scale \(s = 1\). Trap² is trained to be brittle exactly there, so that merging fails. The
+              weighting \(w(s)\) normalizes the training signal across scales. Since gradients shrink for down-scaled
+              updates (\(s < 1\)), we set \(w(s) = 1/s\) by default.
+            </p>
+            <p>
+              <b>[Extension to full fine-tuning]</b> So far \(\Delta W\) is a LoRA adapter, but the same objective
+              applies to full-model fine-tuning. We define a step-dependent update \(\Delta W_t := W_t - W_0\). At each
+              step \(t\) we evaluate the nominal loss at \(W_t\) and the off-nominal loss at the scaled model
+              \(W_0 + s \cdot \Delta W_t\), then update \(W_t\). This gives one architecture-agnostic formulation that
+              covers both adapter-only and full-checkpoint releases.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- End contributions -->
+  <!-- End Trap2 objective -->
 
 
   <!-- Results -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Results</h2>
-      <div class="content has-text-justified">
-        <p>
-          Across architectures (e.g., CLIP ViT-B/32) and release formats, Trap² <b>preserves strong standalone
-          utility</b> while <b>consistently degrading performance under widely used merging operators</b>. It even holds up
-          under <b>stronger threat models</b> that have access to task-relevant data &mdash; both data-dependent mergers and
-          data-driven recovery attacks.
-        </p>
-      </div>
-
+      <h2 class="title is-3 has-text-centered">Experimental Results</h2>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <p class="has-text-centered is-size-6 has-text-weight-semibold">
+        <div class="column is-full">
+          <div class="content has-text-justified">
+            <p>
+              Across architectures and release formats, Trap² <b>preserves strong standalone
+              utility</b> while <b>consistently degrading performance under widely used merging operators</b>. It even holds up
+              under <b>stronger threat models</b> that have access to task-relevant data: both data-dependent mergers and
+              data-driven recovery attacks.
+            </p>
+          </div>
+
+          <h2 class="subtitle has-text-justified" style="margin-top:1rem; line-height:1.8;">
+            <b>[Table 1]</b> Per-task accuracy (%; ↑) on 8 vision benchmarks when each adapter is used
+            <b>standalone</b>, across three CLIP backbones. Trap² matches naïve fine-tuning.
+          </h2>
+          <div class="table-scroll compact">
+          <table class="table is-fullwidth is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th>Backbone</th>
+                <th>Method</th>
+                <th class="has-text-centered">Cars</th>
+                <th class="has-text-centered">DTD</th>
+                <th class="has-text-centered">EuroSAT</th>
+                <th class="has-text-centered">GTSRB</th>
+                <th class="has-text-centered">MNIST</th>
+                <th class="has-text-centered">RESISC</th>
+                <th class="has-text-centered">Aircraft</th>
+                <th class="has-text-centered">SVHN</th>
+                <th class="has-text-centered">Average</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="3" style="vertical-align:middle;"><b>ViT-B/32</b></td>
+                <td>Zero-Shot</td>
+                <td class="has-text-centered">59.4</td><td class="has-text-centered">44.1</td><td class="has-text-centered">45.5</td><td class="has-text-centered">32.3</td><td class="has-text-centered">48.0</td><td class="has-text-centered">60.3</td><td class="has-text-centered">19.0</td><td class="has-text-centered">31.4</td><td class="has-text-centered">42.5</td>
+              </tr>
+              <tr>
+                <td>Fine-Tuned</td>
+                <td class="has-text-centered">99.5</td><td class="has-text-centered">68.7</td><td class="has-text-centered">98.3</td><td class="has-text-centered">98.4</td><td class="has-text-centered">99.1</td><td class="has-text-centered">93.0</td><td class="has-text-centered">51.7</td><td class="has-text-centered">96.2</td><td class="has-text-centered">88.1</td>
+              </tr>
+              <tr class="ours">
+                <td><b>Trap² (Ours)</b></td>
+                <td class="has-text-centered"><b>99.8</b></td><td class="has-text-centered"><b>66.1</b></td><td class="has-text-centered"><b>98.5</b></td><td class="has-text-centered"><b>98.9</b></td><td class="has-text-centered"><b>99.5</b></td><td class="has-text-centered"><b>93.3</b></td><td class="has-text-centered"><b>52.4</b></td><td class="has-text-centered"><b>96.6</b></td><td class="has-text-centered"><b>88.1</b></td>
+              </tr>
+
+              <tr>
+                <td rowspan="3" style="vertical-align:middle;"><b>ViT-L/14</b></td>
+                <td>Zero-Shot</td>
+                <td class="has-text-centered">77.9</td><td class="has-text-centered">55.5</td><td class="has-text-centered">62.3</td><td class="has-text-centered">50.7</td><td class="has-text-centered">76.2</td><td class="has-text-centered">71.4</td><td class="has-text-centered">32.6</td><td class="has-text-centered">58.6</td><td class="has-text-centered">60.6</td>
+              </tr>
+              <tr>
+                <td>Fine-Tuned</td>
+                <td class="has-text-centered">99.8</td><td class="has-text-centered">76.7</td><td class="has-text-centered">98.8</td><td class="has-text-centered">98.5</td><td class="has-text-centered">99.6</td><td class="has-text-centered">95.6</td><td class="has-text-centered">72.6</td><td class="has-text-centered">97.8</td><td class="has-text-centered">92.4</td>
+              </tr>
+              <tr class="ours">
+                <td><b>Trap² (Ours)</b></td>
+                <td class="has-text-centered"><b>99.9</b></td><td class="has-text-centered"><b>78.8</b></td><td class="has-text-centered"><b>98.5</b></td><td class="has-text-centered"><b>99.6</b></td><td class="has-text-centered"><b>99.4</b></td><td class="has-text-centered"><b>96.2</b></td><td class="has-text-centered"><b>80.1</b></td><td class="has-text-centered"><b>97.2</b></td><td class="has-text-centered"><b>93.7</b></td>
+              </tr>
+
+              <tr>
+                <td rowspan="3" style="vertical-align:middle;"><b>ConvNeXt</b></td>
+                <td>Zero-Shot</td>
+                <td class="has-text-centered">89.6</td><td class="has-text-centered">59.6</td><td class="has-text-centered">54.5</td><td class="has-text-centered">48.9</td><td class="has-text-centered">54.9</td><td class="has-text-centered">67.1</td><td class="has-text-centered">27.5</td><td class="has-text-centered">34.3</td><td class="has-text-centered">54.6</td>
+              </tr>
+              <tr>
+                <td>Fine-Tuned</td>
+                <td class="has-text-centered">98.5</td><td class="has-text-centered">76.4</td><td class="has-text-centered">98.9</td><td class="has-text-centered">99.3</td><td class="has-text-centered">99.3</td><td class="has-text-centered">96.1</td><td class="has-text-centered">59.2</td><td class="has-text-centered">97.1</td><td class="has-text-centered">90.6</td>
+              </tr>
+              <tr class="ours">
+                <td><b>Trap² (Ours)</b></td>
+                <td class="has-text-centered"><b>97.6</b></td><td class="has-text-centered"><b>76.1</b></td><td class="has-text-centered"><b>98.6</b></td><td class="has-text-centered"><b>98.9</b></td><td class="has-text-centered"><b>99.5</b></td><td class="has-text-centered"><b>94.1</b></td><td class="has-text-centered"><b>64.3</b></td><td class="has-text-centered"><b>96.2</b></td><td class="has-text-centered"><b>90.7</b></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+          <h2 class="subtitle has-text-justified" style="margin-top:2.5rem; line-height:1.8;">
+            <b>[Table 2]</b> Averaged per-task accuracy (%; ↓) under 8-way LoRA merging: a protected target adapter is
+            merged with seven unprotected ones, across various methods (TA, TIES, TIES+DARE, TSV, CART) and spaces (Full,
+            KnOTS, Core). The merging coefficient is tuned on validation, optimistic for the adversarial merger. Trap² drives
+            merged accuracy far below the unprotected baseline.
+          </h2>
+          <div class="table-scroll compact">
+          <table class="table is-fullwidth is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th rowspan="2" style="vertical-align:middle;">Protection</th>
+                <th class="has-text-centered">TA</th>
+                <th colspan="3" class="has-text-centered">TIES</th>
+                <th colspan="3" class="has-text-centered">TIES+DARE</th>
+                <th colspan="3" class="has-text-centered">TSV</th>
+                <th colspan="3" class="has-text-centered">CART</th>
+              </tr>
+              <tr>
+                <th class="has-text-centered">Full</th>
+                <th class="has-text-centered">Full</th><th class="has-text-centered">KnOTS</th><th class="has-text-centered">Core</th>
+                <th class="has-text-centered">Full</th><th class="has-text-centered">KnOTS</th><th class="has-text-centered">Core</th>
+                <th class="has-text-centered">Full</th><th class="has-text-centered">KnOTS</th><th class="has-text-centered">Core</th>
+                <th class="has-text-centered">Full</th><th class="has-text-centered">KnOTS</th><th class="has-text-centered">Core</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="14"><b>Backbone: ViT-B/32</b> &nbsp; (Zero-shot: 42.5)</td></tr>
+              <tr>
+                <td>Unprotected</td>
+                <td class="has-text-centered">48.3</td>
+                <td class="has-text-centered">48.0</td><td class="has-text-centered">49.9</td><td class="has-text-centered">53.3</td>
+                <td class="has-text-centered">48.2</td><td class="has-text-centered">49.9</td><td class="has-text-centered">54.7</td>
+                <td class="has-text-centered">51.4</td><td class="has-text-centered">49.2</td><td class="has-text-centered">55.0</td>
+                <td class="has-text-centered">49.6</td><td class="has-text-centered">49.9</td><td class="has-text-centered">51.2</td>
+              </tr>
+              <tr class="ours">
+                <td><b>Trap² (Ours)</b></td>
+                <td class="has-text-centered"><b>23.1</b></td>
+                <td class="has-text-centered"><b>36.5</b></td><td class="has-text-centered"><b>37.5</b></td><td class="has-text-centered"><b>37.2</b></td>
+                <td class="has-text-centered"><b>33.9</b></td><td class="has-text-centered"><b>28.4</b></td><td class="has-text-centered"><b>36.8</b></td>
+                <td class="has-text-centered"><b>24.8</b></td><td class="has-text-centered"><b>24.2</b></td><td class="has-text-centered"><b>24.4</b></td>
+                <td class="has-text-centered"><b>41.3</b></td><td class="has-text-centered"><b>41.0</b></td><td class="has-text-centered"><b>41.6</b></td>
+              </tr>
+
+              <tr><td colspan="14"><b>Backbone: ViT-L/14</b> &nbsp; (Zero-shot: 60.6)</td></tr>
+              <tr>
+                <td>Unprotected</td>
+                <td class="has-text-centered">62.9</td>
+                <td class="has-text-centered">67.9</td><td class="has-text-centered">68.9</td><td class="has-text-centered">68.8</td>
+                <td class="has-text-centered">68.0</td><td class="has-text-centered">69.9</td><td class="has-text-centered">68.8</td>
+                <td class="has-text-centered">72.4</td><td class="has-text-centered">66.7</td><td class="has-text-centered">74.6</td>
+                <td class="has-text-centered">64.4</td><td class="has-text-centered">65.0</td><td class="has-text-centered">66.2</td>
+              </tr>
+              <tr class="ours">
+                <td><b>Trap² (Ours)</b></td>
+                <td class="has-text-centered"><b>33.6</b></td>
+                <td class="has-text-centered"><b>53.2</b></td><td class="has-text-centered"><b>47.7</b></td><td class="has-text-centered"><b>54.5</b></td>
+                <td class="has-text-centered"><b>50.6</b></td><td class="has-text-centered"><b>43.3</b></td><td class="has-text-centered"><b>54.8</b></td>
+                <td class="has-text-centered"><b>42.0</b></td><td class="has-text-centered"><b>37.4</b></td><td class="has-text-centered"><b>39.4</b></td>
+                <td class="has-text-centered"><b>58.6</b></td><td class="has-text-centered"><b>58.4</b></td><td class="has-text-centered"><b>59.5</b></td>
+              </tr>
+
+              <tr><td colspan="14"><b>Backbone: ConvNeXt</b> &nbsp; (Zero-shot: 54.6)</td></tr>
+              <tr>
+                <td>Unprotected</td>
+                <td class="has-text-centered">49.2</td>
+                <td class="has-text-centered">59.6</td><td class="has-text-centered">60.2</td><td class="has-text-centered">63.6</td>
+                <td class="has-text-centered">59.6</td><td class="has-text-centered">60.3</td><td class="has-text-centered">63.6</td>
+                <td class="has-text-centered">65.1</td><td class="has-text-centered">60.4</td><td class="has-text-centered">65.8</td>
+                <td class="has-text-centered">60.1</td><td class="has-text-centered">60.0</td><td class="has-text-centered">61.2</td>
+              </tr>
+              <tr class="ours">
+                <td><b>Trap² (Ours)</b></td>
+                <td class="has-text-centered"><b>14.7</b></td>
+                <td class="has-text-centered"><b>32.9</b></td><td class="has-text-centered"><b>15.2</b></td><td class="has-text-centered"><b>17.2</b></td>
+                <td class="has-text-centered"><b>15.6</b></td><td class="has-text-centered"><b>13.1</b></td><td class="has-text-centered"><b>25.3</b></td>
+                <td class="has-text-centered"><b>14.1</b></td><td class="has-text-centered"><b>15.9</b></td><td class="has-text-centered"><b>15.3</b></td>
+                <td class="has-text-centered"><b>47.0</b></td><td class="has-text-centered"><b>45.9</b></td><td class="has-text-centered"><b>47.2</b></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+          <p class="has-text-justified is-size-6 has-text-weight-semibold">
             Averaged accuracy (%, lower is better for the attacker) under stronger threat models on CLIP ViT-B/32.
             Zero-shot reference: 42.48%.
           </p>
@@ -420,7 +605,7 @@
                 <td class="has-text-centered">73.82</td>
                 <td class="has-text-centered">56.86</td>
               </tr>
-              <tr>
+              <tr class="ours">
                 <td><b>Trap² (Ours)</b></td>
                 <td class="has-text-centered"><b>9.48</b></td>
                 <td class="has-text-centered"><b>32.33</b></td>
@@ -432,20 +617,20 @@
           </div>
           <p class="is-size-6">
             After merging a Trap²-protected adapter, even white-box recovery (ProDistill, post-merge SFT) gains
-            only a few points above the zero-shot reference, while the unprotected baseline recovers far more &mdash;
+            only a few points above the zero-shot reference, while the unprotected baseline recovers far more,
             indicating that protection meaningfully impedes recovery even with in-domain data.
           </p>
-        </div>
-      </div>
 
-      <div class="content has-text-justified" style="margin-top:1rem;">
-        <p>
-          <b>Catastrophic degradation under averaging.</b> Using a uniform-averaging proxy (scaling a single adapter by
-          s&nbsp;=&nbsp;1/N), Trap² shows consistent catastrophic degradation as soon as N&nbsp;&ge;&nbsp;2 across
-          eight vision benchmarks, while unprotected adapters stay relatively stable.
-          <b>Low cost.</b> Despite the adversarial objective, Trap² is competitive with standard LoRA fine-tuning &mdash;
-          faster to a shared target accuracy on 5 of 8 datasets and higher accuracy at a shared budget on 6 of 8.
-        </p>
+          <div class="content has-text-justified" style="margin-top:1rem;">
+            <p>
+              <b>Catastrophic degradation under averaging.</b> Using a uniform-averaging proxy (scaling a single adapter by
+              \(s = 1/N\)), Trap² shows consistent catastrophic degradation as soon as \(N \geq 2\) across
+              eight vision benchmarks, while unprotected adapters stay relatively stable.
+              <b>Low cost.</b> Despite the adversarial objective, Trap² is competitive with standard LoRA fine-tuning:
+              faster to a shared target accuracy on 5 of 8 datasets and higher accuracy at a shared budget on 6 of 8.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
