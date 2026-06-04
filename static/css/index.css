@@ -381,7 +381,7 @@ body {
 
 /* BibTeX Styling */
 pre {
-  background: rgba(229, 161, 71, 0.15) !important;
+  background: var(--background-primary) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: var(--border-radius) !important;
   padding: 1.5rem !important;
@@ -399,7 +399,7 @@ code {
 /* BibTeX Section Improvements */
 .bibtex-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 1rem;
 }
@@ -895,11 +895,22 @@ a:focus {
   border-bottom: 2px solid var(--border-color);
 }
 
-/* Compact result tables: keep container width, shrink font so many columns fit */
-.table-scroll.compact .table {
+/* Result tables: uniform compact font/padding across all tables */
+.table-scroll .table {
   font-size: 0.72rem;
 }
-.table-scroll.compact .table td,
-.table-scroll.compact .table th {
+.table-scroll .table td,
+.table-scroll .table th {
   padding: 0.35em 0.4em;
+}
+
+/* Content-width tables, centered (not stretched to full width) */
+.table-scroll .table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Wide (compact) tables fill the container; small tables stay content-width */
+.table-scroll.compact .table {
+  width: 100%;
 }
